@@ -6,12 +6,12 @@ local GAP_WIDTH = 80
 
 function FlagPair:init(x)
 
-    self.y = VIRTUAL_HEIGHT + 32
+    self.y = VIRTUAL_HEIGHT
     self.x = x
 
     self.flags = {
         ['left'] = Flag('left', self.x),
-        ['right'] = Flag('right', self.x + FLAG_WIDTH + GAP_WIDTH)
+        ['right'] = Flag('right', self.x + math.random(70,GAP_WIDTH))
     }
 
     -- whether this pipe pair is ready to be removed from the scene
@@ -21,6 +21,7 @@ end
 function FlagPair:update(dt)
     -- remove the pipe from the scene if it's beyond the left edge of the screen,
     -- else move it from right to left
+    FLAG_SPEED = FLAG_SPEED + dt * 2
     if self.y > 280 then
         self.y = self.y - FLAG_SPEED * dt
         self.flags['left'].y = self.y
