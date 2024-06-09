@@ -62,7 +62,9 @@ function love.load()
 --    ['score'] = love.audio.newSource('score.wav', 'static'),
     
     -- https://freesound.org/people/xsgianni/sounds/388079/
-    ['music'] = love.audio.newSource('01 Its Tricky.wav', 'static')
+    ['music'] = love.audio.newSource('snowstorm background.wav', 'static'),
+    ['menu'] = love.audio.newSource('menu music.wav', 'static'),
+    ['crash'] = love.audio.newSource('collision sound.wav', 'static'),
     }
     
 

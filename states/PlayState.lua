@@ -16,6 +16,7 @@ function PlayState:init()
 
     self.lastX = -FLAG_HEIGHT + math.random(80)+20
     self.scorecounter = 0
+    sounds['menu']:stop()
     sounds['music']:setLooping(true)
     sounds['music']:play()
 
@@ -50,6 +51,7 @@ function PlayState:update(dt)
 
     self.skier:update(dt)
 
+
     for k, pair in pairs(self.flagPairs) do        
         left_flag = pair.flags['left'].x
         right_flag = pair.flags['right'].x
@@ -64,6 +66,9 @@ function PlayState:update(dt)
             if self.skier:collides(flag) then
                 print('Collides: True')
                 FLAG_SPEED = 100
+                sounds['crash']:play()
+                
+                
                 gStateMachine:change('score')
             end
         end

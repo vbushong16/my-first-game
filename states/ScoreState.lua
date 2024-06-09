@@ -13,7 +13,7 @@ function ScoreState:update(dt)
 end
 
 function ScoreState:render()
-
+    --sounds['menu']:play()
     sounds['music']:stop()
 
     love.graphics.setFont(largeFont)

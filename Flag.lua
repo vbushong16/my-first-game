@@ -6,7 +6,7 @@
 
 Flag = Class{}
 
-local FLAG_IMAGE = love.graphics.newImage('flag.png')
+local FLAG_IMAGE = love.graphics.newImage('ski flag.png')
 local FLAG_SCROLL = -150
 
 
