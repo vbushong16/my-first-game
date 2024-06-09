@@ -30,6 +30,7 @@ require 'StateMachine'
 require 'states/BaseState'
 require 'states/PlayState'
 require 'states/TitleScreenState'
+require 'states/ScoreState'
 
 WINDOW_WIDTH = 400
 WINDOW_HEIGHT = 610
@@ -50,6 +51,7 @@ function love.load()
     love.window.setTitle('SnowStorm')
 
     smallFont = love.graphics.newFont('font.ttf',8)
+    largeFont = love.graphics.newFont('font.ttf',24)
     love.graphics.setFont(smallFont)
     push:setupScreen(VIRTUAL_WIDTH, VIRTUAL_HEIGHT, WINDOW_WIDTH, WINDOW_HEIGHT, {
         fullscreen = false,
@@ -60,6 +62,7 @@ function love.load()
     gStateMachine = StateMachine{
         ['title'] = function() return TitleScreenState() end,
         ['play'] =  function() return PlayState() end,
+        ['score'] =  function() return ScoreState() end,
     }
     gStateMachine:change('title')
 

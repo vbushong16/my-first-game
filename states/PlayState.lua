@@ -15,6 +15,7 @@ function PlayState:init()
     self.timer = 0
 
     self.lastX = -FLAG_HEIGHT + math.random(80)+20
+    self.scorecounter = 0
 end
 
 function PlayState:update(dt)
@@ -27,7 +28,8 @@ function PlayState:update(dt)
         print("left flag: ",x)
         self.lastX = x
         table.insert(self.flagPairs, FlagPair(x))
-        self.timer = math.random(0,1)
+--        self.timer = math.random(0,1)
+        self.timer = 0
     end
 
 
@@ -40,17 +42,27 @@ function PlayState:update(dt)
 
     for k, pair in pairs(self.flagPairs) do
         if pair.remove then
+            pair.scored = true
             table.remove(self.flagPairs, k)
         end
     end
 
     self.skier:update(dt)
 
-    for k, pair in pairs(self.flagPairs) do
+    for k, pair in pairs(self.flagPairs) do        
+        left_flag = pair.flags['left'].x
+        right_flag = pair.flags['right'].x
         for l, flag in pairs(pair.flags) do
+            if not pair.scored then
+                if self.skier:scores(left_flag,right_flag,flag) then
+                    print('Score: True')
+                    self.scorecounter = self.scorecounter + 1
+                    pair.scored = true
+                end
+            end
             if self.skier:collides(flag) then
-                print('True')
-                gStateMachine:change('title')
+                print('Collides: True')
+                gStateMachine:change('score')
             end
         end
     end
@@ -64,6 +76,8 @@ function PlayState:render()
         pair:render()
     end
 
+    love.graphics.setFont(largeFont)
+    love.graphics.print('Score: ' .. tostring(self.scorecounter), 8, 8)
 
     self.skier:render()
 end
