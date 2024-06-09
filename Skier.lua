@@ -21,27 +21,32 @@ function Skier:collides(flag)
 
     --print(flag.x)
     if (self.y + 2) + (self.height - 4) >= flag.y+6  and self.y + 2 <= flag.y + FLAG_HEIGHT then
-        print("y:",(self.y + 2) + (self.height - 4) >= flag.y+6  and self.y + 2 <= flag.y + FLAG_HEIGHT)
+      --  print("y:",(self.y + 2) + (self.height - 4) >= flag.y+6  and self.y + 2 <= flag.y + FLAG_HEIGHT)
 
-        print("SKbx:",(self.x + 2) + (self.width - 4))
-        print("SKx:",(self.x + 2) )
-        print("Fbx:",(flag.x + FLAG_WIDTH))
-        print("fx:",flag.x)
+     --   print("SKbx:",(self.x + 2) + (self.width - 4))
+      --  print("SKx:",(self.x + 2) )
+      --  print("Fbx:",(flag.x + FLAG_WIDTH))
+       -- print("fx:",flag.x)
 
         if (self.x + 4) + (self.width - 8) >= flag.x+10 and self.x + 2 <= flag.x + FLAG_WIDTH -8 then
-            print("x:",(self.x + 4) + (self.width - 8) >= flag.x+10 and self.x + 2 <= flag.x + FLAG_WIDTH -8)
+           -- print("x:",(self.x + 4) + (self.width - 8) >= flag.x+10 and self.x + 2 <= flag.x + FLAG_WIDTH -8)
             return true
         end
     end
 
---    if (self.x + 2) + (self.width - 4) >= flag.x and self.x + 2 <= flag.x + FLAG_WIDTH then
---        if (self.y + 2) + (self.height - 4) >= flag.y and self.y + 2 <= flag.y + FLAG_HEIGHT then
---            return true
---        end
---    end
-
     return false
 end
+
+
+function Skier:scores(left_flag,right_flag,flag)
+    if (self.x) >= left_flag and (self.x + SKIER_WIDTH) <= right_flag + FLAG_WIDTH then
+        if self.y > flag.y + FLAG_HEIGHT then
+            return true
+        end
+    end
+end
+
+
 
 function Skier:update(dt)
 
