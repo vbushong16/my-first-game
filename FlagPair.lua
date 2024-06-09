@@ -22,8 +22,8 @@ end
 function FlagPair:update(dt)
     -- remove the pipe from the scene if it's beyond the left edge of the screen,
     -- else move it from right to left
---    FLAG_SPEED = FLAG_SPEED + dt * 2
-    if self.y > 280 then
+    FLAG_SPEED = FLAG_SPEED + dt * 5
+    if self.y > 295 then
         self.y = self.y - FLAG_SPEED * dt
         self.flags['left'].y = self.y
         self.flags['right'].y = self.y

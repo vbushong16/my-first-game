@@ -31,12 +31,13 @@ require 'states/BaseState'
 require 'states/PlayState'
 require 'states/TitleScreenState'
 require 'states/ScoreState'
+require 'states/CountdownState'
 
 WINDOW_WIDTH = 400
 WINDOW_HEIGHT = 610
 
-VIRTUAL_WIDTH = 400
-VIRTUAL_HEIGHT = 610
+VIRTUAL_WIDTH = 380
+VIRTUAL_HEIGHT = 580
 --[[
     Runs when the game first starts up, only once; used to initialize the game.
 ]]
@@ -51,7 +52,20 @@ function love.load()
     love.window.setTitle('SnowStorm')
 
     smallFont = love.graphics.newFont('font.ttf',8)
-    largeFont = love.graphics.newFont('font.ttf',24)
+    largeFont = love.graphics.newFont('SEASRN__.ttf',24)
+    hugeFont = love.graphics.newFont('font.ttf',48)
+
+    sounds = {
+--    ['jump'] = love.audio.newSource('jump.wav', 'static'),
+--    ['explosion'] = love.audio.newSource('explosion.wav', 'static'),
+--    ['hurt'] = love.audio.newSource('hurt.wav', 'static'),
+--    ['score'] = love.audio.newSource('score.wav', 'static'),
+    
+    -- https://freesound.org/people/xsgianni/sounds/388079/
+    ['music'] = love.audio.newSource('01 Its Tricky.wav', 'static')
+    }
+    
+
     love.graphics.setFont(smallFont)
     push:setupScreen(VIRTUAL_WIDTH, VIRTUAL_HEIGHT, WINDOW_WIDTH, WINDOW_HEIGHT, {
         fullscreen = false,
@@ -63,6 +77,7 @@ function love.load()
         ['title'] = function() return TitleScreenState() end,
         ['play'] =  function() return PlayState() end,
         ['score'] =  function() return ScoreState() end,
+        ['countdown'] =  function() return CountdownState() end,
     }
     gStateMachine:change('title')
 

@@ -9,8 +9,8 @@ function Skier:init()
     self.width = self.image:getWidth()
     self.height = self.image:getHeight()
 
-    self.x = 0
-    self.y = VIRTUAL_HEIGHT / 2 + 40
+    self.x = VIRTUAL_WIDTH/2
+    self.y = VIRTUAL_HEIGHT / 2 + 65
 
     self.dx = 0
 
