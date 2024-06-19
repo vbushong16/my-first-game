@@ -1,8 +1,7 @@
 
 FlagPair = Class{}
 
--- size of the gap between flags
-local GAP_WIDTH = 80
+
 
 function FlagPair:init(x)
 
