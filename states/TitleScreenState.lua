@@ -4,13 +4,39 @@
 
 TitleScreenState = Class{__includes = BaseState}
 
+local highlighted = 1
+
+
+function TitleScreenState:enter(params)
+    self.highScores = params.highScores
+end
+
+
 function TitleScreenState:update(dt)
 
     sounds['menu']:play()
 
-    if love.keyboard.wasPressed('enter') or love.keyboard.wasPressed('return') then
-        gStateMachine:change('countdown')
+    if love.keyboard.wasPressed('up') or love.keyboard.wasPressed('down') then
+        highlighted = highlighted == 1 and 2 or 1
     end
+
+
+    if love.keyboard.wasPressed('enter') or love.keyboard.wasPressed('return') then
+
+        if highlighted == 1 then
+            gStateMachine:change('countdown')
+        else
+            gStateMachine:change('high-scores',{
+                highScores = self.highScores
+            })
+        end
+    end
+
+
+    if love.keyboard.wasPressed('escape') then
+        love.event.quit()
+    end    
+
 end
 
 function TitleScreenState:render()
@@ -20,6 +46,29 @@ function TitleScreenState:render()
     love.graphics.setFont(largeFont)
     love.graphics.printf('SnowStorm', 0, 64, VIRTUAL_WIDTH, 'center')
 
+<<<<<<< Updated upstream:states/TitleScreenState.lua
     love.graphics.setFont(largeFont)
     love.graphics.printf('Press Enter', 0, 100, VIRTUAL_WIDTH, 'center')
+=======
+    -- instructions
+    love.graphics.setFont(gFonts['largeFont'])
+
+    -- if we're highlighting 1, render that option blue
+    if highlighted == 1 then
+        love.graphics.setColor(103/255, 1, 1, 1)
+    end
+    love.graphics.printf("START", 0, VIRTUAL_HEIGHT/2 + 70, VIRTUAL_WIDTH, 'center')
+
+    -- reset the color
+    love.graphics.setColor(1, 1, 1, 1)
+
+    -- render option 2 blue if we're highlighting that one
+    if highlighted == 2 then
+        love.graphics.setColor(103/255, 1, 1, 1)
+    end
+    love.graphics.printf("HIGH SCORES", 0,  VIRTUAL_HEIGHT/2 + 140,VIRTUAL_WIDTH, 'center')
+
+    -- reset the color
+    love.graphics.setColor(1, 1, 1, 1)
+>>>>>>> Stashed changes:src/states/TitleScreenState.lua
 end

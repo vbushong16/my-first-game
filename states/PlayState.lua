@@ -69,7 +69,9 @@ function PlayState:update(dt)
                 sounds['crash']:play()
                 
                 
-                gStateMachine:change('score')
+                gStateMachine:change('game-over',{
+                    score = self.scorecounter
+                })
             end
         end
     end

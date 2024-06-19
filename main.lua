@@ -51,6 +51,7 @@ function love.load()
     love.graphics.setDefaultFilter('nearest', 'nearest')
     love.window.setTitle('SnowStorm')
 
+<<<<<<< Updated upstream
     smallFont = love.graphics.newFont('font.ttf',8)
     largeFont = love.graphics.newFont('SEASRN__.ttf',24)
     hugeFont = love.graphics.newFont('font.ttf',48)
@@ -67,6 +68,10 @@ function love.load()
     ['crash'] = love.audio.newSource('collision sound.wav', 'static'),
     }
     
+=======
+    math.randomseed(os.time())
+
+>>>>>>> Stashed changes
 
     love.graphics.setFont(smallFont)
     push:setupScreen(VIRTUAL_WIDTH, VIRTUAL_HEIGHT, WINDOW_WIDTH, WINDOW_HEIGHT, {
@@ -78,10 +83,15 @@ function love.load()
     gStateMachine = StateMachine{
         ['title'] = function() return TitleScreenState() end,
         ['play'] =  function() return PlayState() end,
-        ['score'] =  function() return ScoreState() end,
+        ['skier-select'] =  function() return SkierSelectState() end,
+        ['game-over'] =  function() return GameOverState() end,
+        ['high-scores'] =  function() return HighScoreState() end,
+        ['enter-high-score'] =  function() return EnterHighScoreState() end,
         ['countdown'] =  function() return CountdownState() end,
     }
-    gStateMachine:change('title')
+    gStateMachine:change('title',{
+        highScores = loadHighScores()
+    })
 
     love.keyboard.keysPressed = {}
     
@@ -98,10 +108,7 @@ end
 function love.keypressed(key)
     -- keys can be accessed by string name
     love.keyboard.keysPressed[key] = true
-    if key == 'escape' then
-        -- function LÖVE gives us to terminate application
-        love.event.quit()
-    end
+
 end
 
 function love.keyboard.wasPressed(key)
@@ -132,4 +139,93 @@ function love.draw()
 
     -- end rendering at virtual resolution
     push:finish()
+end
+
+
+
+function loadHighScores()
+    love.filesystem.setIdentity('snowstorm')
+
+    -- if the file doesn't exist, initialize it with some default scores
+    if not love.filesystem.getInfo('snowstorm.lst') then
+        local scores = ''
+        for i = 10, 1, -1 do
+            scores = scores .. 'CTO\n'
+            scores = scores .. tostring(i * 1000) .. '\n'
+        end
+
+        love.filesystem.write('snowstorm.lst', scores)
+    end
+
+    -- flag for whether we're reading a name or not
+    local name = true
+    local currentName = nil
+    local counter = 1
+
+    -- initialize scores table with at least 10 blank entries
+    local scores = {}
+
+    for i = 1, 10 do
+        -- blank table; each will hold a name and a score
+        scores[i] = {
+            name = nil,
+            score = nil
+        }
+    end
+
+    -- iterate over each line in the file, filling in names and scores
+    for line in love.filesystem.lines('snowstorm.lst') do
+        if name then
+            scores[counter].name = string.sub(line, 1, 3)
+        else
+            scores[counter].score = tonumber(line)
+            counter = counter + 1
+        end
+
+        -- flip the name flag
+        name = not name
+    end
+
+    return scores
+end
+
+--[[
+    Renders hearts based on how much health the player has. First renders
+    full hearts, then empty hearts for however much health we're missing.
+]]
+function renderHealth(health)
+    -- start of our health rendering
+    local healthX = VIRTUAL_WIDTH - 100
+    
+    -- render health left
+    for i = 1, health do
+        love.graphics.draw(gTextures['hearts'], gFrames['hearts'][1], healthX, 4)
+        healthX = healthX + 11
+    end
+
+    -- render missing health
+    for i = 1, 3 - health do
+        love.graphics.draw(gTextures['hearts'], gFrames['hearts'][2], healthX, 4)
+        healthX = healthX + 11
+    end
+end
+
+--[[
+    Renders the current FPS.
+]]
+function displayFPS()
+    -- simple FPS display across all states
+    love.graphics.setFont(gFonts['small'])
+    love.graphics.setColor(0, 1, 0, 1)
+    love.graphics.print('FPS: ' .. tostring(love.timer.getFPS()), 5, 5)
+end
+
+--[[
+    Simply renders the player's score at the top right, with left-side padding
+    for the score number.
+]]
+function renderScore(score)
+    love.graphics.setFont(gFonts['small'])
+    love.graphics.print('Score:', VIRTUAL_WIDTH - 60, 5)
+    love.graphics.printf(tostring(score), VIRTUAL_WIDTH - 50, 5, 40, 'right')
 end
