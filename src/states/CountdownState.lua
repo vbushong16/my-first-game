@@ -2,7 +2,7 @@
 
 CountdownState = Class{__includes = BaseState}
 
-COUNTDOWN_TIME = 0.75
+
 
 function CountdownState:init()
     self.count = 3
@@ -24,10 +24,10 @@ end
 
 function CountdownState:render()
 
-    love.graphics.draw(ground, 0,0)
+    love.graphics.draw(gTextures['background'], 0,0)
     
     
     love.graphics.setColor(love.math.colorFromBytes(191,170,36))
-    love.graphics.setFont(hugeFont)
+    love.graphics.setFont(gFonts['hugeFont'])
     love.graphics.printf(tostring(self.count),0,120,VIRTUAL_WIDTH,'center')
 end

@@ -2,12 +2,6 @@
 
 PlayState = Class{__includes = BaseState}
 
-FLAG_SPEED = 100
-FLAG_WIDTH = 30
-FLAG_HEIGHT = 30
-
-SKIER_WIDTH = 30
-SKIER_HEIGHT = 30
 
 function PlayState:init()
     self.skier = Skier()
@@ -16,9 +10,9 @@ function PlayState:init()
 
     self.lastX = -FLAG_HEIGHT + math.random(80)+20
     self.scorecounter = 0
-    sounds['menu']:stop()
-    sounds['music']:setLooping(true)
-    sounds['music']:play()
+    gSounds['menu']:stop()
+    gSounds['music']:setLooping(true)
+    gSounds['music']:play()
 
 end
 
@@ -66,7 +60,7 @@ function PlayState:update(dt)
             if self.skier:collides(flag) then
                 print('Collides: True')
                 FLAG_SPEED = 100
-                sounds['crash']:play()
+                gSounds['crash']:play()
                 
                 
                 gStateMachine:change('score')
@@ -77,13 +71,13 @@ end
 
 function PlayState:render()
     
-    love.graphics.draw(ground, 0,0)
+    love.graphics.draw(gTextures['background'], 0,0)
     
     for k, pair in pairs(self.flagPairs) do
         pair:render()
     end
 
-    love.graphics.setFont(largeFont)
+    love.graphics.setFont(gFonts['largeFont'])
     love.graphics.print('Score: ' .. tostring(self.scorecounter), 8, 8)
 
     self.skier:render()

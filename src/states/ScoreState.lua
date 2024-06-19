@@ -14,14 +14,14 @@ end
 
 function ScoreState:render()
     --sounds['menu']:play()
-    sounds['music']:stop()
+    gSounds['music']:stop()
 
-    love.graphics.setFont(largeFont)
+    love.graphics.setFont(gFonts['largeFont'])
     love.graphics.printf('SnowStorm', 0, 64, VIRTUAL_WIDTH, 'center')
 
-    love.graphics.setFont(largeFont)
+    love.graphics.setFont(gFonts['largeFont'])
     love.graphics.printf('You Lose', 0, 100, VIRTUAL_WIDTH, 'center')
 
-    love.graphics.setFont(largeFont)
+    love.graphics.setFont(gFonts['largeFont'])
     love.graphics.printf('Press Enter', 0, 150, VIRTUAL_WIDTH, 'center')
 end

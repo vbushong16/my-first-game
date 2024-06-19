@@ -18,31 +18,13 @@
 -- resolution, instead of however large our window is; used to provide
 -- a more retro aesthetic
 --
--- https://github.com/Ulydev/push
-push = require 'push'
-Class = require 'class'
 
-require 'Skier'
-require 'Flag'
-require 'FlagPair'
+require 'src/Dependencies'
 
-require 'StateMachine'
-require 'states/BaseState'
-require 'states/PlayState'
-require 'states/TitleScreenState'
-require 'states/ScoreState'
-require 'states/CountdownState'
-
-WINDOW_WIDTH = 400
-WINDOW_HEIGHT = 610
-
-VIRTUAL_WIDTH = 380
-VIRTUAL_HEIGHT = 580
 --[[
     Runs when the game first starts up, only once; used to initialize the game.
 ]]
 
-ground = love.graphics.newImage('ground 4.png')
 
 local scrolling = true
 
@@ -51,24 +33,8 @@ function love.load()
     love.graphics.setDefaultFilter('nearest', 'nearest')
     love.window.setTitle('SnowStorm')
 
-    smallFont = love.graphics.newFont('font.ttf',8)
-    largeFont = love.graphics.newFont('SEASRN__.ttf',24)
-    hugeFont = love.graphics.newFont('font.ttf',48)
 
-    sounds = {
---    ['jump'] = love.audio.newSource('jump.wav', 'static'),
---    ['explosion'] = love.audio.newSource('explosion.wav', 'static'),
---    ['hurt'] = love.audio.newSource('hurt.wav', 'static'),
---    ['score'] = love.audio.newSource('score.wav', 'static'),
-    
-    -- https://freesound.org/people/xsgianni/sounds/388079/
-    ['music'] = love.audio.newSource('snowstorm background.wav', 'static'),
-    ['menu'] = love.audio.newSource('menu music.wav', 'static'),
-    ['crash'] = love.audio.newSource('collision sound.wav', 'static'),
-    }
-    
-
-    love.graphics.setFont(smallFont)
+    love.graphics.setFont(gFonts['smallFont'])
     push:setupScreen(VIRTUAL_WIDTH, VIRTUAL_HEIGHT, WINDOW_WIDTH, WINDOW_HEIGHT, {
         fullscreen = false,
         resizable = false,

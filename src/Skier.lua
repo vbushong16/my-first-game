@@ -1,11 +1,11 @@
 
 Skier = Class{}
 
-local SKIER_SPEED = 200
+
 
 function Skier:init()
 
-    self.image = love.graphics.newImage('skier.png')
+    self.image = gTextures['skier']
     self.width = self.image:getWidth()
     self.height = self.image:getHeight()
 
