@@ -26,14 +26,17 @@ push = require 'lib/push'
 -- utility
 require 'src/constants'
 require 'src/StateMachine'
---require 'src/Util'
+require 'src/Util'
 
 -- game states
 require 'src/states/BaseState'
 require 'src/states/CountdownState'
 require 'src/states/PlayState'
-require 'src/states/ScoreState'
+require 'src/states/GameOverState'
 require 'src/states/TitleScreenState'
+require 'src/states/EnterHighScoreState'
+require 'src/states/SkierSelectState'
+require 'src/states/HighScoreState'
 
 -- entity states
 --require 'src/states/entity/PlayerFallingState'
@@ -71,12 +74,14 @@ gTextures = {
     ['background'] = love.graphics.newImage('graphics/background.png'),
     ['skier'] = love.graphics.newImage('graphics/skier.png'),
     ['ski_flag'] = love.graphics.newImage('graphics/ski flag.png'),
+    ['arrows'] = love.graphics.newImage('graphics/arrows.png'),
 }
 
 
 gFonts = {
-    ['smallFont'] = love.graphics.newFont('fonts/font.ttf',8),
-    ['largeFont'] = love.graphics.newFont('fonts/SEASRN__.ttf',24),
-    ['hugeFont'] = love.graphics.newFont('fonts/font.ttf',48),
+    ['smallFont'] = love.graphics.newFont('fonts/SEASRN__.ttf',12),
+    ['mediumFont'] = love.graphics.newFont('fonts/SEASRN__.ttf',20),
+    ['largeFont'] = love.graphics.newFont('fonts/SEASRN__.ttf',34),
+    ['hugeFont'] = love.graphics.newFont('fonts/SEASRN__.ttf',48),
     --['title'] = love.graphics.newFont('fonts/ArcadeAlternate.ttf', 32)
 }

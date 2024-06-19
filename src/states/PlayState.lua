@@ -2,9 +2,13 @@
 
 PlayState = Class{__includes = BaseState}
 
+function PlayState:enter(params)
+    self.highScores = params.highScores
+    self.skier = params.skier
+end
 
-function PlayState:init()
-    self.skier = Skier()
+function PlayState:init(skin)
+    self.skier = skin
     self.flagPairs = {}
     self.timer = 0
 
@@ -62,8 +66,12 @@ function PlayState:update(dt)
                 FLAG_SPEED = 100
                 gSounds['crash']:play()
                 
-                
-                gStateMachine:change('score')
+                print(self.scorecounter)
+                print(self.highScores[1].score)
+                gStateMachine:change('game-over',{
+                    highScores = self.highScores,
+                    scores = self.scorecounter
+                })
             end
         end
     end

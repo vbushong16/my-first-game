@@ -2,7 +2,10 @@
 
 CountdownState = Class{__includes = BaseState}
 
-
+function CountdownState:enter(params)
+    self.highScores = params.highScores
+    self.skier = params.skier
+end
 
 function CountdownState:init()
     self.count = 3
@@ -17,7 +20,10 @@ function CountdownState:update(dt)
         self.count = self.count - 1
 
         if self.count == 0 then
-            gStateMachine:change('play')
+            gStateMachine:change('play',{
+                highScores = self.highScores,
+                skier = self.skier
+            })
         end
     end
 end

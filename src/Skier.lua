@@ -3,17 +3,22 @@ Skier = Class{}
 
 
 
-function Skier:init()
+function Skier:init(skin)
 
-    self.image = gTextures['skier']
-    self.width = self.image:getWidth()
-    self.height = self.image:getHeight()
+    self.skin = skin
+--    self.width = 32
+--    self.height = 32
+
+
+    self.width = gTextures['skier']:getWidth()
+    self.height = gTextures['skier']:getHeight()
+
 
     self.x = VIRTUAL_WIDTH/2
     self.y = VIRTUAL_HEIGHT / 2 + 65
 
     self.dx = 0
-
+    --print(self.skin)
 end
 
 function Skier:collides(flag)
@@ -62,7 +67,7 @@ function Skier:update(dt)
 end
 
 function Skier:render()
-    love.graphics.draw(self.image, self.x, self.y)
+    love.graphics.draw(gTextures['skier'],gFrames['skiers'][1], self.x, self.y)
 end
 
 
