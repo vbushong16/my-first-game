@@ -57,7 +57,7 @@ require 'src/states/HighScoreState'
 --require 'src/Player'
 --require 'src/Snail'
 --require 'src/Tile'
---require 'src/TileMap'
+require 'src/PowerUp'
 require 'src/Flag'
 require 'src/FlagPair'
 require 'src/Skier'
@@ -75,6 +75,8 @@ gTextures = {
     ['skier'] = love.graphics.newImage('graphics/skier.png'),
     ['ski_flag'] = love.graphics.newImage('graphics/ski flag.png'),
     ['arrows'] = love.graphics.newImage('graphics/arrows.png'),
+    ['particle'] = love.graphics.newImage('graphics/particle.png'),
+    ['powerUp'] = love.graphics.newImage('graphics/power_up.png'),
 }
 
 

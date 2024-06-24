@@ -57,7 +57,7 @@ function SkierSelectState:render()
     love.graphics.draw(gTextures['arrows'],gFrames['arrows'][2],VIRTUAL_WIDTH-VIRTUAL_WIDTH/4-24, VIRTUAL_HEIGHT- VIRTUAL_HEIGHT/3)
 
     love.graphics.setColor(1,1,1,1)
-    love.graphics.draw(gTextures['skier'],gFrames['skiers'][1],VIRTUAL_WIDTH/2-32, VIRTUAL_HEIGHT- VIRTUAL_HEIGHT/3)
+    love.graphics.draw(gTextures['skier'],gFrames['skiers'][self.currentSkier],VIRTUAL_WIDTH/2-32, VIRTUAL_HEIGHT- VIRTUAL_HEIGHT/3)
 
 
 end
