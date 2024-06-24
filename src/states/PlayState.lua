@@ -11,6 +11,9 @@ function PlayState:init(skin)
     self.skier = skin
     self.flagPairs = {}
     self.timer = 0
+    self.powertimer = 0
+
+    self.powerUps = {}
 
     self.lastX = -FLAG_HEIGHT + math.random(80)+20
     self.scorecounter = 0
@@ -23,6 +26,13 @@ end
 function PlayState:update(dt)
 
     self.timer = self.timer + dt
+    self.powertimer = self.powertimer + dt
+
+    if love.keyboard.isDown('left') then
+        self.skier:turn()
+    elseif love.keyboard.isDown('right') then
+        self.skier:turn()
+    end
 
     if self.timer > 2 then
         --local x = math.max(-FLAG_WIDTH + 10, math.min(lastX + math.random(-10,60),VIRTUAL_WIDTH ))
@@ -32,6 +42,27 @@ function PlayState:update(dt)
         self.timer = math.random(0,1)
     end
 
+    if self.powertimer > math.random(4,20) then
+        print(math.random(4,20))
+        local x = math.random(80,210)
+        self.lastX = X
+        table.insert(self.powerUps,PowerUp(x))
+        self.powertimer = 0
+    end
+     
+    for k, pair in pairs(self.powerUps) do
+        pair:update(dt)
+        if pair.y < 230 then
+            pair.remove = true
+        end    
+    end
+
+    for k, pair in pairs(self.powerUps) do
+        if pair.remove then
+            pair.scored = true
+            table.remove(self.powerUps, k)
+        end
+    end
 
     for k, pair in pairs(self.flagPairs) do
         pair:update(dt)
@@ -75,6 +106,11 @@ function PlayState:update(dt)
             end
         end
     end
+
+    if love.keyboard.wasPressed('escape') then
+        love.event.quit()
+    end
+
 end
 
 function PlayState:render()
@@ -85,8 +121,19 @@ function PlayState:render()
         pair:render()
     end
 
+    for k, pair in pairs(self.powerUps) do
+        pair:render()
+    end
+
     love.graphics.setFont(gFonts['largeFont'])
     love.graphics.print('Score: ' .. tostring(self.scorecounter), 8, 8)
 
     self.skier:render()
+
+    if love.keyboard.isDown('left') then
+        self.skier:renderParticles()
+    elseif love.keyboard.isDown('right') then
+        self.skier:renderParticles()
+    end
+
 end

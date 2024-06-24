@@ -45,6 +45,7 @@ function love.load()
         ['arrows'] = GenerateQuads(gTextures['arrows'],24,24),
         ['skiers'] = GenerateQuads(gTextures['skier'],32,32),
         ['flags'] = GenerateQuads(gTextures['ski_flag'],32,32),
+        ['powerUp'] = GenerateQuads(gTextures['powerUp'],15,15),
     }
 
     gStateMachine = StateMachine{
