@@ -72,7 +72,7 @@ gSounds = {
 
 gTextures = {
     ['background'] = love.graphics.newImage('graphics/background.png'),
-    ['skier'] = love.graphics.newImage('graphics/skier.png'),
+    ['skier'] = love.graphics.newImage('graphics/skier Archive.png'),
     ['ski_flag'] = love.graphics.newImage('graphics/ski flag.png'),
     ['arrows'] = love.graphics.newImage('graphics/arrows.png'),
     ['particle'] = love.graphics.newImage('graphics/particle.png'),
