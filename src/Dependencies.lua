@@ -17,6 +17,8 @@
 Class = require 'lib/class'
 -- https://github.com/Ulydev/push
 push = require 'lib/push'
+lume = require 'lib/lume'
+lurker = require 'lib/lurker'
 --Timer = require 'lib/knife.timer'
 
 --
@@ -66,8 +68,7 @@ require 'src/Skier'
 gSounds = {
     ['music'] = love.audio.newSource('sounds/snowstorm background.wav', 'static'),
     ['menu'] = love.audio.newSource('sounds/menu music.wav', 'static'),
-    ['crash'] = love.audio.newSource('sounds/collision sound.wav', 'static'),
-
+    ['crash'] = love.audio.newSource('sounds/collision sound.wav', 'static')
 }
 
 gTextures = {

@@ -89,6 +89,7 @@ end
     
 
 function love.update(dt)
+    require('lib/lurker').update()
     gStateMachine:update(dt)
     love.keyboard.keysPressed = {}
 end
