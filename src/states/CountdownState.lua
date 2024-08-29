@@ -4,7 +4,8 @@ CountdownState = Class{__includes = BaseState}
 
 function CountdownState:enter(params)
     self.highScores = params.highScores
-    self.skier = params.skier
+    self.skin = params.skin
+    -- print("Countdown ENTER: ",self.skin)
 end
 
 function CountdownState:init()
@@ -20,9 +21,11 @@ function CountdownState:update(dt)
         self.count = self.count - 1
 
         if self.count == 0 then
+            -- print("Countdown CHANGE: ",self.skin)
             gStateMachine:change('play',{
+            -- gStateMachine:change('game-over',{
                 highScores = self.highScores,
-                skier = self.skier
+                skin = self.skin
             })
         end
     end

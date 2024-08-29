@@ -36,11 +36,15 @@ paletteColors = {
 
 function Skier:init(skin)
 
+
+
     self.skin = skin
-   self.width = 32
-   self.height = 32
+    self.width = 32
+    self.height = 32
     self.color = 1
 
+    print("SKIER CLASS ENTER: ",self.skin)
+    
     -- self.width = gTextures['skier']:getWidth()
     -- self.height = gTextures['skier']:getHeight()
     -- self.width = gFrames['skier'][1]:getWidth()
@@ -51,7 +55,6 @@ function Skier:init(skin)
     self.y = VIRTUAL_HEIGHT / 2 + 65
 
     self.dx = 0
-    --print(self.skin)
 
     -- particle system belonging to the brick, emitted on hit
     self.psystem = love.graphics.newParticleSystem(gTextures['particle'], 64)
@@ -123,11 +126,12 @@ end
 
 function Skier:update(dt)
 
+    print(self.skin)
     self.psystem:update(dt)
      -- keyboard input
      if love.keyboard.isDown('left') then
         self.dx = math.max(-SKIER_SPEED,self.dx + -ACCELERATION_SPEED)
-        print(self.dx)
+        -- print(self.dx)
     elseif love.keyboard.isDown('right') then
         self.dx = math.min(SKIER_SPEED,self.dx + ACCELERATION_SPEED)
     else
@@ -139,13 +143,13 @@ function Skier:update(dt)
     -- go into the negatives; the movement calculation is simply our
     -- previously-defined paddle speed scaled by dt
     if self.dx < 0 then
-        self.x = math.max(70, self.x + self.dx * dt)
+        self.x = self.x + self.dx * dt
     -- similar to before, this time we use math.min to ensure we don't
     -- go any farther than the bottom of the screen minus the paddle's
     -- height (or else it will go partially below, since position is
     -- based on its top left corner)
     else
-        self.x = math.min(VIRTUAL_WIDTH - 100, self.x + self.dx * dt)
+        self.x = self.x + self.dx * dt
     end
 
     --print(self.x)

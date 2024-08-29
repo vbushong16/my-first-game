@@ -51,34 +51,20 @@ require 'src/states/HighScoreState'
 --require 'src/states/entity/snail/SnailMovingState'
 
 -- general
---require 'src/Animation'
---require 'src/Entity'
---require 'src/GameObject'
---require 'src/GameLevel'
---require 'src/LevelMaker'
---require 'src/Player'
---require 'src/Snail'
---require 'src/Tile'
-require 'src/PowerUp'
+require 'src/Animation'
+require 'src/Entity'
 require 'src/Flag'
 require 'src/FlagPair'
+require 'src/GameLevel'
+require 'src/GameObject'
+require 'src/LevelMaker'
+require 'src/Player'
+require 'src/PowerUp'
 require 'src/Skier'
+require 'src/Snail'
+require 'src/Tile'
+require 'src/TileMap'
 
-
-gSounds = {
-    ['music'] = love.audio.newSource('sounds/snowstorm background.wav', 'static'),
-    ['menu'] = love.audio.newSource('sounds/menu music.wav', 'static'),
-    ['crash'] = love.audio.newSource('sounds/collision sound.wav', 'static')
-}
-
-gTextures = {
-    ['background'] = love.graphics.newImage('graphics/background.png'),
-    ['skier'] = love.graphics.newImage('graphics/skier.png'),
-    ['ski_flag'] = love.graphics.newImage('graphics/ski flag.png'),
-    ['arrows'] = love.graphics.newImage('graphics/arrows.png'),
-    ['particle'] = love.graphics.newImage('graphics/particle.png'),
-    ['powerUp'] = love.graphics.newImage('graphics/power_up.png'),
-}
 
 
 gFonts = {
@@ -88,3 +74,37 @@ gFonts = {
     ['hugeFont'] = love.graphics.newFont('fonts/SEASRN__.ttf',48),
     --['title'] = love.graphics.newFont('fonts/ArcadeAlternate.ttf', 32)
 }
+
+gSounds = {
+    ['music'] = love.audio.newSource('sounds/snowstorm background.wav', 'static'),
+    ['menu'] = love.audio.newSource('sounds/menu music.wav', 'static'),
+    ['crash'] = love.audio.newSource('sounds/collision sound.wav', 'static')
+}
+
+gTextures = {
+    -- ['tiles'] = love.graphics.newImage('graphics/tiles.png'),
+    ['tiles'] = love.graphics.newImage('graphics/Snow sprite.png'),
+    ['background'] = love.graphics.newImage('graphics/background.png'),
+    ['skier'] = love.graphics.newImage('graphics/skier.png'),
+    ['ski_flag'] = love.graphics.newImage('graphics/ski flag.png'),
+    ['arrows'] = love.graphics.newImage('graphics/arrows.png'),
+    ['particle'] = love.graphics.newImage('graphics/particle.png'),
+    ['powerUp'] = love.graphics.newImage('graphics/power_up.png'),
+    ['tree'] = love.graphics.newImage('graphics/tree.png'),
+}
+
+
+gFrames = {
+    ['tiles'] = GenerateQuads(gTextures['tiles'], TILE_SIZE, TILE_SIZE),
+    ['arrows'] = GenerateQuads(gTextures['arrows'],24,24),
+    ['skiers'] = GenerateQuads(gTextures['skier'],32,32),
+    ['flags'] = GenerateQuads(gTextures['ski_flag'],32,32),
+    ['powerUp'] = GenerateQuads(gTextures['powerUp'],15,15),
+    ['tree'] = GenerateQuads(gTextures['tree'],16,25),
+}
+
+gFrames['tilesets'] = GenerateTileSets(gFrames['tiles'], 
+    TILE_SETS_WIDE, TILE_SETS_TALL, TILE_SET_WIDTH, TILE_SET_HEIGHT)
+
+
+

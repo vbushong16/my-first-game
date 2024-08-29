@@ -33,6 +33,8 @@ function Tile:collidable(target)
 end
 
 function Tile:render()
-    love.graphics.draw(gTextures['tiles'], gFrames['tilesets'][self.tileset][self.id],
+    love.graphics.draw(gTextures['tiles'], gFrames['tiles'][self.id],
         (self.x - 1) * TILE_SIZE, (self.y - 1) * TILE_SIZE)
+    -- love.graphics.draw(gTextures['tiles'], gFrames['tilesets'][self.tileset][self.id],
+    --     (self.x - 1) * TILE_SIZE, (self.y - 1) * TILE_SIZE)
 end

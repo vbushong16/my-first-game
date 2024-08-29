@@ -25,8 +25,11 @@ function SkierSelectState:update(dt)
 
     if love.keyboard.wasPressed('return') or love.keyboard.wasPressed('enter') then
 
+
+        -- print("SELECT SKIER EXIT: ",self.currentSkier)
+
         gStateMachine: change('countdown',{
-            skier = Skier(self.currentSkier),
+            skin = self.currentSkier,
             highScores = self.highScores
 
         })
