@@ -19,7 +19,7 @@ Class = require 'lib/class'
 push = require 'lib/push'
 lume = require 'lib/lume'
 lurker = require 'lib/lurker'
---Timer = require 'lib/knife.timer'
+-- Timer = require 'lib/knife.timer'
 
 --
 -- our own code
@@ -31,20 +31,20 @@ require 'src/StateMachine'
 require 'src/Util'
 
 -- game states
-require 'src/states/BaseState'
-require 'src/states/CountdownState'
-require 'src/states/PlayState'
-require 'src/states/GameOverState'
-require 'src/states/TitleScreenState'
-require 'src/states/EnterHighScoreState'
-require 'src/states/SkierSelectState'
-require 'src/states/HighScoreState'
+require 'src/states/game/BaseState'
+require 'src/states/game/CountdownState'
+require 'src/states/game/PlayState'
+require 'src/states/game/GameOverState'
+require 'src/states/game/TitleScreenState'
+require 'src/states/game/EnterHighScoreState'
+require 'src/states/game/SkierSelectState'
+require 'src/states/game/HighScoreState'
 
 -- entity states
 --require 'src/states/entity/PlayerFallingState'
 --require 'src/states/entity/PlayerIdleState'
 --require 'src/states/entity/PlayerJumpState'
---require 'src/states/entity/PlayerWalkingState'
+require 'src/states/entity/SkierSkiingState'
 
 --require 'src/states/entity/snail/SnailChasingState'
 --require 'src/states/entity/snail/SnailIdleState'
@@ -97,7 +97,7 @@ gTextures = {
 gFrames = {
     ['tiles'] = GenerateQuads(gTextures['tiles'], TILE_SIZE, TILE_SIZE),
     ['arrows'] = GenerateQuads(gTextures['arrows'],24,24),
-    ['skiers'] = GenerateQuads(gTextures['skier'],32,32),
+    ['skier'] = GenerateQuads(gTextures['skier'],32,32),
     ['flags'] = GenerateQuads(gTextures['ski_flag'],32,32),
     ['powerUp'] = GenerateQuads(gTextures['powerUp'],15,15),
     ['tree'] = GenerateQuads(gTextures['tree'],16,25),

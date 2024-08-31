@@ -8,6 +8,7 @@
     cogden@cs50.harvard.edu
 ]]
 
+
 Entity = Class{}
 
 function Entity:init(def)
@@ -49,6 +50,6 @@ function Entity:collides(entity)
 end
 
 function Entity:render()
-    love.graphics.draw(gTextures[self.texture], gFrames[self.texture][self.currentAnimation:getCurrentFrame()],
+    love.graphics.draw(gTextures[self.texture], gFrames[self.texture][1],
         math.floor(self.x) + 8, math.floor(self.y) + 10, 0, self.direction == 'right' and 1 or -1, 1, 8, 10)
 end

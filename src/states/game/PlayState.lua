@@ -4,7 +4,7 @@ PlayState = Class{__includes = BaseState}
 
 function PlayState:enter(params)
     self.highScores = params.highScores
-    self.skier = Skier(params.skin)
+    --self.skier = Skier(params.skin)
 end
 
 function PlayState:init()
@@ -27,20 +27,37 @@ function PlayState:init()
     gSounds['music']:setLooping(true)
     gSounds['music']:play()
 
+    self.skier = Skier({
+        x = 0,--VIRTUAL_WIDTH/2,
+        y = 0,--VIRTUAL_HEIGHT / 2 + 65,
+        width = 32,
+        height = 32,
+        texture = 'skier',
+        stateMachine = StateMachine{
+            ['skiing'] = function() return SkierSkiingState(self.skier) end
+        },
+        map = self.tileMap,
+        level = self.level
+    })
+
+    self.skier:changeState('skiing')
 end
 
 function PlayState:update(dt)
+    -- Timer.update(dt)
 
     self.level:clear()
 
     -- self.timer = self.timer + dt
     -- self.powertimer = self.powertimer + dt
 
-    if love.keyboard.isDown('left') then
-        self.skier:turn()
-    elseif love.keyboard.isDown('right') then
-        self.skier:turn()
-    end
+    self.skier:update(dt)
+    self.level.update(dt)
+    -- if love.keyboard.isDown('left') then
+    --     self.skier:turn()
+    -- elseif love.keyboard.isDown('right') then
+    --     self.skier:turn()
+    -- end
 
     -- if self.timer > 2 then
     --     --local x = math.max(-FLAG_WIDTH + 10, math.min(lastX + math.random(-10,60),VIRTUAL_WIDTH ))
@@ -86,8 +103,6 @@ function PlayState:update(dt)
     --     end
     -- end
 
-    self.skier:update(dt)
-
 
     -- for k, pair in pairs(self.flagPairs) do        
     --     left_flag = pair.flags['left'].x
@@ -114,10 +129,14 @@ function PlayState:update(dt)
     --         end
     --     end
     -- end
-
-
-
     self:updateCamera()
+
+    if self.skier.x <= 3 then
+        self.skier.x = 3
+    elseif self.skier.x > TILE_SIZE * self.tileMap.width - 3 - self.skier.width then
+        self.skier.x = TILE_SIZE * self.tileMap.width - 3 - self.skier.width
+    end
+
 
     if love.keyboard.wasPressed('escape') then
         love.event.quit()
@@ -146,12 +165,13 @@ function PlayState:render()
     -- love.graphics.print('Score: ' .. tostring(self.scorecounter), 8, 8)
 
     self.skier:render()
+    -- love.graphics.pop()
 
-    if love.keyboard.isDown('left') then
-        self.skier:renderParticles()
-    elseif love.keyboard.isDown('right') then
-        self.skier:renderParticles()
-    end
+    -- if love.keyboard.isDown('left') then
+    --     self.skier:renderParticles()
+    -- elseif love.keyboard.isDown('right') then
+    --     self.skier:renderParticles()
+    -- end
 
 end
 

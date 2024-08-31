@@ -24,13 +24,13 @@ end
 --[[
     Returns the x, y of a tile given an x, y of coordinates in the world space.
 ]]
--- function TileMap:pointToTile(x, y)
---     if x < 0 or x > self.width * TILE_SIZE or y < 0 or y > self.height * TILE_SIZE then
---         return nil
---     end
+function TileMap:pointToTile(x, y)
+    if x < 0 or x > self.width * TILE_SIZE or y < 0 or y > self.height * TILE_SIZE then
+        return nil
+    end
     
---     return self.tiles[math.floor(y / TILE_SIZE) + 1][math.floor(x / TILE_SIZE) + 1]
--- end
+    return self.tiles[math.floor(y / TILE_SIZE) + 1][math.floor(x / TILE_SIZE) + 1]
+end
 
 function TileMap:render()
     for y = 1, self.width do
