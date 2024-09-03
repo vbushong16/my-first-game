@@ -24,7 +24,7 @@ function LevelMaker.generate(width, height)
     -- print(width)
 
     -- insert blank tables into tiles for later access
-    for y = 1, width do
+    for y = 1, height do
         table.insert(tiles, {})
     end
 
@@ -38,6 +38,22 @@ function LevelMaker.generate(width, height)
         for x = 3, width -2  do
             table.insert(tiles[x],
                 Tile(x, y, tileID, tileset))
+        end    
+        if y % 10 == 0 then
+            table.insert(objects,
+                GameObject {
+                    texture = 'ski_flag',
+                    x = math.random(5,10) * TILE_SIZE,
+                    y = y * TILE_SIZE,
+                    width = 16,
+                    height = 16,
+                    frame = 1,
+                    collidable = true,
+                    hit = false,
+                    solid = true,
+
+                }
+            )
         end
         
         tileID = TILE_ID_EDGE
@@ -57,7 +73,9 @@ function LevelMaker.generate(width, height)
                     
                     -- select random frame from bush_ids whitelist, then random row for variance
                     frame = 1,--BUSH_IDS[math.random(#BUSH_IDS)] + (math.random(4) - 1) * 7,
-                    collidable = false
+                    collidable = true,
+                    hit = false,
+                    solid = true,
                 }
             )
 

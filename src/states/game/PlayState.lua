@@ -28,8 +28,8 @@ function PlayState:init()
     gSounds['music']:play()
 
     self.skier = Skier({
-        x = 0,--VIRTUAL_WIDTH/2,
-        y = 0,--VIRTUAL_HEIGHT / 2 + 65,
+        x = VIRTUAL_WIDTH/2,
+        y = VIRTUAL_HEIGHT / 2 + 65,
         width = 32,
         height = 32,
         texture = 'skier',
@@ -48,11 +48,18 @@ function PlayState:update(dt)
 
     self.level:clear()
 
+
+    print("SKIER Y:", self.skier.y," HEIGHT: ",self.tileMap.height * TILE_SIZE)
+    print("TILE INDEX: ",math.floor(self.skier.y / TILE_SIZE) + 1)
+    print("SKIER X:", self.skier.x," WIDTH: ",self.tileMap.width * TILE_SIZE)
+    if self.skier.x < 0 or self.skier.x > self.tileMap.width * TILE_SIZE or self.skier.y < 0 or self.skier.y > self.tileMap.height * TILE_SIZE then
+        print('IT HIT NIL')
+    end
     -- self.timer = self.timer + dt
     -- self.powertimer = self.powertimer + dt
 
     self.skier:update(dt)
-    self.level.update(dt)
+    self.level:update(dt)
     -- if love.keyboard.isDown('left') then
     --     self.skier:turn()
     -- elseif love.keyboard.isDown('right') then
@@ -131,8 +138,8 @@ function PlayState:update(dt)
     -- end
     self:updateCamera()
 
-    if self.skier.x <= 3 then
-        self.skier.x = 3
+    if self.skier.x <= TILE_SIZE * 2 then
+        self.skier.x = TILE_SIZE*2+1
     elseif self.skier.x > TILE_SIZE * self.tileMap.width - 3 - self.skier.width then
         self.skier.x = TILE_SIZE * self.tileMap.width - 3 - self.skier.width
     end
@@ -185,4 +192,11 @@ function PlayState:updateCamera()
 
     -- adjust background X to move a third the rate of the camera for parallax
     self.backgroundX = (self.camX / 3) % 256
+
+    self.camY = math.max(0,
+        math.min(TILE_SIZE * self.tileMap.height - VIRTUAL_HEIGHT,
+        self.skier.y - (VIRTUAL_HEIGHT / 2 - 8)))
+
+-- adjust background X to move a third the rate of the camera for parallax
+    self.backgroundY = (self.camY / 3) % 256
 end

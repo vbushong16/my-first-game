@@ -14,7 +14,7 @@ function GameLevel:init(entities, objects, tilemap)
     self.entities = entities
     self.objects = objects
     self.tileMap = tilemap
-    print(self.tileMap)
+    --print(self.tileMap)
 end
 
 --[[

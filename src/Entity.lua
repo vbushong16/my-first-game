@@ -48,7 +48,7 @@ function Entity:collides(entity)
     return not (self.x > entity.x + entity.width or entity.x > self.x + self.width or
                 self.y > entity.y + entity.height or entity.y > self.y + self.height)
 end
-
+-- removed animation call
 function Entity:render()
     love.graphics.draw(gTextures[self.texture], gFrames[self.texture][1],
         math.floor(self.x) + 8, math.floor(self.y) + 10, 0, self.direction == 'right' and 1 or -1, 1, 8, 10)

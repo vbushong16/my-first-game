@@ -98,7 +98,7 @@ gFrames = {
     ['tiles'] = GenerateQuads(gTextures['tiles'], TILE_SIZE, TILE_SIZE),
     ['arrows'] = GenerateQuads(gTextures['arrows'],24,24),
     ['skier'] = GenerateQuads(gTextures['skier'],32,32),
-    ['flags'] = GenerateQuads(gTextures['ski_flag'],32,32),
+    ['ski_flag'] = GenerateQuads(gTextures['ski_flag'],32,32),
     ['powerUp'] = GenerateQuads(gTextures['powerUp'],15,15),
     ['tree'] = GenerateQuads(gTextures['tree'],16,25),
 }

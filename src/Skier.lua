@@ -109,14 +109,13 @@ function Skier:checkLeftCollisions(dt)
     else
         
         -- allow us to walk atop solid objects even if we collide with them
-        self.x = self.x - 1
+        self.y = self.y - 1
         local collidedObjects = self:checkObjectCollisions()
-        self.x = self.x + 1
+        self.y = self.y + 1
 
-        
         -- reset X if new collided object
         if #collidedObjects > 0 then
-            self.x = self.x + SKIER_SPEED * dt
+            self.y = self.y - SKIER_SPEED * dt
         end
     end
 end
@@ -132,13 +131,13 @@ function Skier:checkRightCollisions(dt)
     else
         
         -- allow us to walk atop solid objects even if we collide with them
-        self.x = self.x - 1
+        self.y = self.y - 1
         local collidedObjects = self:checkObjectCollisions()
-        self.x = self.x + 1
+        self.y = self.y + 1
 
         -- reset X if new collided object
         if #collidedObjects > 0 then
-            self.x = self.x - SKIER_SPEED * dt
+            self.y = self.y - SKIER_SPEED * dt
         end
     end
 end
