@@ -30,8 +30,8 @@ function PlayState:init()
     self.skier = Skier({
         x = VIRTUAL_WIDTH/2,
         y = VIRTUAL_HEIGHT / 2 + 65,
-        width = 32,
-        height = 32,
+        width = 16,
+        height = 16,
         texture = 'skier',
         stateMachine = StateMachine{
             ['skiing'] = function() return SkierSkiingState(self.skier) end
@@ -49,12 +49,6 @@ function PlayState:update(dt)
     self.level:clear()
 
 
-    print("SKIER Y:", self.skier.y," HEIGHT: ",self.tileMap.height * TILE_SIZE)
-    print("TILE INDEX: ",math.floor(self.skier.y / TILE_SIZE) + 1)
-    print("SKIER X:", self.skier.x," WIDTH: ",self.tileMap.width * TILE_SIZE)
-    if self.skier.x < 0 or self.skier.x > self.tileMap.width * TILE_SIZE or self.skier.y < 0 or self.skier.y > self.tileMap.height * TILE_SIZE then
-        print('IT HIT NIL')
-    end
     -- self.timer = self.timer + dt
     -- self.powertimer = self.powertimer + dt
 
@@ -153,6 +147,7 @@ end
 
 function PlayState:render()
     
+    love.graphics.push()
     -- love.graphics.draw(gTextures['background'], 0,0)
 
     -- translate the entire view of the scene to emulate a camera
@@ -168,17 +163,20 @@ function PlayState:render()
     --     pair:render()
     -- end
 
-    -- love.graphics.setFont(gFonts['largeFont'])
-    -- love.graphics.print('Score: ' .. tostring(self.scorecounter), 8, 8)
+
 
     self.skier:render()
-    -- love.graphics.pop()
+    love.graphics.pop()
 
     -- if love.keyboard.isDown('left') then
     --     self.skier:renderParticles()
     -- elseif love.keyboard.isDown('right') then
     --     self.skier:renderParticles()
     -- end
+
+    love.graphics.setFont(gFonts['largeFont'])
+    love.graphics.setColor(0, 0, 0, 1)
+    love.graphics.print('Score: ' .. tostring(self.skier.score), 8, 8)
 
 end
 

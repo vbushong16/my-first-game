@@ -34,4 +34,6 @@ end
 
 function GameObject:render()
     love.graphics.draw(gTextures[self.texture], gFrames[self.texture][self.frame], self.x, self.y)
+    -- love.graphics.setColor(0,0,0,1)
+    -- love.graphics.rectangle('line',self.x,self.y,16,16)
 end

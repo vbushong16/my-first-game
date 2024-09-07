@@ -36,7 +36,7 @@ paletteColors = {
 
 function Skier:init(def)
     Entity.init(self,def)
-
+    self.score = 0
 
     -- self.skin = skin
     -- self.width = 32
@@ -100,46 +100,49 @@ end
 
 function Skier:checkLeftCollisions(dt)
     -- check for left two tiles collision
-    local tileTopLeft = self.map:pointToTile(self.x + 1, self.y + 1)
+    -- local tileTopLeft = self.map:pointToTile(self.x + 1, self.y + 1)
     local tileBottomLeft = self.map:pointToTile(self.x + 1, self.y + self.height - 1)
 
     -- place player outside the X bounds on one of the tiles to reset any overlap
-    if (tileTopLeft and tileBottomLeft) and (tileTopLeft:collidable() or tileBottomLeft:collidable()) then
-        self.x = (tileTopLeft.x - 1) * TILE_SIZE + tileTopLeft.width - 1
-    else
+    -- if (tileTopLeft and tileBottomLeft) and (tileTopLeft:collidable() or tileBottomLeft:collidable()) then
+    --     self.x = (tileTopLeft.x - 1) * TILE_SIZE + tileTopLeft.width - 1
+    -- else
         
+    -- print("TOP LEFT: ",tileTopLeft:collidable())
+    -- print("BOTTOM LEFT: ",tileBottomLeft:collidable())
+
         -- allow us to walk atop solid objects even if we collide with them
-        self.y = self.y - 1
+        -- self.y = self.y - 1
         local collidedObjects = self:checkObjectCollisions()
-        self.y = self.y + 1
+        -- self.y = self.y + 1
 
         -- reset X if new collided object
         if #collidedObjects > 0 then
-            self.y = self.y - SKIER_SPEED * dt
+            -- self.y = self.y - SKIER_SPEED * dt
         end
-    end
+    -- end
 end
 
 function Skier:checkRightCollisions(dt)
     -- check for right two tiles collision
-    local tileTopRight = self.map:pointToTile(self.x + self.width - 1, self.y + 1)
+    -- local tileTopRight = self.map:pointToTile(self.x + self.width - 1, self.y + 1)
     local tileBottomRight = self.map:pointToTile(self.x + self.width - 1, self.y + self.height - 1)
 
     -- place player outside the X bounds on one of the tiles to reset any overlap
-    if (tileTopRight and tileBottomRight) and (tileTopRight:collidable() or tileBottomRight:collidable()) then
-        self.x = (tileTopRight.x - 1) * TILE_SIZE - self.width
-    else
-        
+    -- if (tileTopRight and tileBottomRight) and (tileTopRight:collidable() or tileBottomRight:collidable()) then
+        -- self.x = (tileTopRight.x - 1) * TILE_SIZE - self.width
+    -- else
+           
         -- allow us to walk atop solid objects even if we collide with them
-        self.y = self.y - 1
+        -- self.y = self.y - 1
         local collidedObjects = self:checkObjectCollisions()
-        self.y = self.y + 1
+        -- self.y = self.y + 1
 
         -- reset X if new collided object
         if #collidedObjects > 0 then
-            self.y = self.y - SKIER_SPEED * dt
+            -- self.y = self.y - SKIER_SPEED * dt
         end
-    end
+    -- end
 end
 
 function Skier:checkObjectCollisions()

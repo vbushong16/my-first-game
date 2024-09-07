@@ -19,11 +19,19 @@ function SkierSkiingState:update(dt)
 
     local tileBottomLeft = self.skier.map:pointToTile(self.skier.x +1,self.skier.y +self.skier.height)
     local tileBottomRight = self.skier.map:pointToTile(self.skier.x + self.skier.width -1, self.skier.y + self.skier.height)
-    
 
-    self.skier.x = self.skier.x - 1
+    --self.skier.x = self.skier.x - 1
     local collidedObjects = self.skier:checkObjectCollisions()
-    self.skier.x = self.skier.x + 1
+    --self.skier.x = self.skier.x + 1
+
+    -- print("BOTTOM LEFT: ",tileBottomLeft:collidable())
+    -- print("BOTTOM RIGHT: ",tileBottomRight:collidable())
+
+    if tileBottomLeft:collidable() or tileBottomRight:collidable() then
+        self.skier.y = self.skier.y
+    else
+        self.skier.y = FLAG_SPEED*dt + self.skier.y
+    end
 
     if  #collidedObjects == 0 and (tileBottomLeft and tileBottomRight) and (not tileBottomLeft:collidable() and not tileBottomRight:collidable()) then
          self.skier.dy = 0
@@ -36,10 +44,11 @@ function SkierSkiingState:update(dt)
         self.skier.dx = math.min(SKIER_SPEED,self.skier.dx + ACCELERATION_SPEED)
         self.skier.x = self.skier.x + self.skier.dx * dt
         self.skier:checkRightCollisions()
+        
     end
     
     --FLAG_SPEED = FLAG_SPEED + FLAG_SPEED * 0.01
-    self.skier.y = FLAG_SPEED*dt + self.skier.y
+
 
      
     for k,entity in pairs(self.skier.level.entities) do
@@ -52,9 +61,19 @@ function SkierSkiingState:update(dt)
     -- check if we've collided with any collidable game objects
     for k, object in pairs(self.skier.level.objects) do
         if object:collides(self.skier) then
+            print("=============================================================")
+            print("OBJECT TEXTURE: ", object.texture)
+            print("OBJECT x: ", object.x)
+            print("OBJECT y: ", object.y)
+            print("OBJECT solid: ", object.solid)
+            print("OBJECT collidable: ", object.collidable)
+            print("OBJECT width: ", object.width)
+            print("OBJECT height: ", object.height)
+            
+            print("OBJECT COLLISION")
             if object.solid then
-                self.skier.dy = 0
-                --self.player.y = object.y - self.player.height
+                -- self.skier.dy = 0
+                self.skier.y = 0--self.skier.y
 
                 -- if love.keyboard.isDown('left') or love.keyboard.isDown('right') then
                 --     self.player:changeState('walking')

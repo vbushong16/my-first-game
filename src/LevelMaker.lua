@@ -35,15 +35,46 @@ function LevelMaker.generate(width, height)
         
         local tileID = TILE_ID_EMPTY
 
-        for x = 3, width -2  do
-            table.insert(tiles[x],
+        for x = 3, width-2  do
+            if y == height then
+                table.insert(tiles[x],
+                        Tile(x, y, TILE_ID_EDGE, tileset))
+            
+            else
+                table.insert(tiles[x],
                 Tile(x, y, tileID, tileset))
-        end    
-        if y % 10 == 0 then
-            table.insert(objects,
+
+            -- if math.random(10) == 1 then
+            --     table.insert(tiles[x],
+            --     Tile(x, y, TILE_ID_EDGE, tileset))
+            -- else
+            --     table.insert(tiles[x],
+            --     Tile(x, y, tileID, tileset))
+            end
+        end
+        
+
+
+        if y>20 then
+            if  y % 10 == 0 then
+                local flag_location = math.random(5,10)
+                table.insert(objects,
+                    GameObject {
+                        texture = 'ski_flag',
+                        x = flag_location * TILE_SIZE,
+                        y = y * TILE_SIZE,
+                        width = 16,
+                        height = 16,
+                        frame = 1,
+                        collidable = true,
+                        hit = false,
+                        solid = true,
+                    }
+                )
+                table.insert(objects,
                 GameObject {
                     texture = 'ski_flag',
-                    x = math.random(5,10) * TILE_SIZE,
+                    x = (flag_location + 5) * TILE_SIZE,
                     y = y * TILE_SIZE,
                     width = 16,
                     height = 16,
@@ -51,9 +82,31 @@ function LevelMaker.generate(width, height)
                     collidable = true,
                     hit = false,
                     solid = true,
-
                 }
             )
+
+            end
+            if math.random(50) == 1 then
+                table.insert(objects,
+                GameObject {
+                    texture = 'powerUp',
+                    x = math.random(3,15) * TILE_SIZE,
+                    y = y * TILE_SIZE,
+                    width = 15,
+                    height = 15,
+                    frame = 1,
+                    collidable = true,
+                    hit = false,
+                    solid = false,
+                    consumable = true,
+
+                    onConsume = function(skier, object)
+                        -- gSounds['pickup']:play()
+                        skier.score = skier.score + 100
+                    end
+                }
+            )
+            end
         end
         
         tileID = TILE_ID_EDGE
@@ -84,6 +137,7 @@ function LevelMaker.generate(width, height)
 
         end
 
+
         
         -- for x in 1, 2 do
         --     table.insert(tiles[x],
@@ -95,8 +149,12 @@ function LevelMaker.generate(width, height)
         --     table.insert(tiles[x],
         --         Tile(x, y, tileID, tileset))
         -- end
+
          
     end
+
+    print("MY WIDTH: ",width)
+    print("MY WIDTH: ",height)
 
     local map = TileMap(width, height)
     map.tiles = tiles

@@ -12,8 +12,8 @@ function Tile:init(x, y, id,tileset)
     self.x = x
     self.y = y
 
-    self.width = TILE_SIZE
-    self.height = TILE_SIZE
+    -- self.width = TILE_SIZE
+    -- self.height = TILE_SIZE
 
     self.id = id
     self.tileset = tileset
@@ -23,7 +23,7 @@ end
     Checks to see whether this ID is whitelisted as collidable in a global constants table.
 ]]
 function Tile:collidable(target)
-    for k, v in pairs(COLLIDABLE_TILES) do
+    for k, v in pairs(COLLIDABLE_TILES) do     
         if v == self.id then
             return true
         end
