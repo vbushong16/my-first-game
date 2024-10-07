@@ -30,11 +30,12 @@ function PlayState:init()
     self.skier = Skier({
         x = VIRTUAL_WIDTH/2,
         y = VIRTUAL_HEIGHT / 2 + 65,
-        width = 16,
-        height = 16,
+        width = 21,
+        height = 26,
         texture = 'skier',
         stateMachine = StateMachine{
-            ['skiing'] = function() return SkierSkiingState(self.skier) end
+            ['skiing'] = function() return SkierSkiingState(self.skier) end,
+            ['jump'] = function() return SkierJumpState(self.skier) end
         },
         map = self.tileMap,
         level = self.level

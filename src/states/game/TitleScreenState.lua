@@ -23,9 +23,12 @@ function TitleScreenState:update(dt)
     if love.keyboard.wasPressed('enter') or love.keyboard.wasPressed('return') then
 
         if highlighted == 1 then
-            gStateMachine:change('skier-select', {
+            gStateMachine:change('play', {
                 highScores = self.highScores
             })
+            -- gStateMachine:change('skier-select', {
+            --     highScores = self.highScores
+            -- })
         else
             gStateMachine:change('high-scores', {
                 highScores = self.highScores

@@ -5,17 +5,17 @@ SkierSkiingState = Class{__includes = BaseState}
 
 function SkierSkiingState:init(skier)
     self.skier = skier
-    self.animation = 1 
-    -- Animation {
-    --     frame = {1},
-    --     interval = 1
-    -- }
+    self.animation = Animation {
+        frames = {1},
+        interval = 1
+    }
 
+    print(self.animation.frame)
     self.skier.currentAnimation = self.animation
 end
 
 function SkierSkiingState:update(dt)
-    --self.skier.currentAnimation:update(dt)
+    self.skier.currentAnimation:update(dt)
 
     local tileBottomLeft = self.skier.map:pointToTile(self.skier.x +1,self.skier.y +self.skier.height)
     local tileBottomRight = self.skier.map:pointToTile(self.skier.x + self.skier.width -1, self.skier.y + self.skier.height)
@@ -37,10 +37,12 @@ function SkierSkiingState:update(dt)
          self.skier.dy = 0
     end
     if love.keyboard.isDown('left') then
-        self.skier.dx = math.max(-SKIER_SPEED,self.skier.dx + -ACCELERATION_SPEED)
+        self.skier.dx = 0
+        self.skier.dx = math.max(-SKIER_SPEED,self.skier.dx-ACCELERATION_SPEED)
         self.skier.x = self.skier.x + self.skier.dx * dt
         self.skier:checkLeftCollisions()
     elseif love.keyboard.isDown('right') then
+        self.skier.dx = 0
         self.skier.dx = math.min(SKIER_SPEED,self.skier.dx + ACCELERATION_SPEED)
         self.skier.x = self.skier.x + self.skier.dx * dt
         self.skier:checkRightCollisions()
@@ -87,6 +89,9 @@ function SkierSkiingState:update(dt)
         end
     end
 
+    if love.keyboard.wasPressed('space') then
+        self.skier:changeState('jump')
+    end
 
 
 end

@@ -50,8 +50,8 @@ function Entity:collides(entity)
 end
 -- removed animation call
 function Entity:render()
-    love.graphics.draw(gTextures[self.texture], gFrames[self.texture][1],
-        math.floor(self.x)+16, math.floor(self.y), 0, self.direction == 'right' and 1 or -1, 1, 0, 0)
+    love.graphics.draw(gTextures[self.texture], gFrames[self.texture][self.currentAnimation:getCurrentFrame()],
+        math.floor(self.x+26), math.floor(self.y-2), 0, self.direction == 'right' and 1 or -1, 1, 0, 0)
     love.graphics.setColor(0, 0, 0, 1)
-    love.graphics.rectangle("line", math.floor(self.x), math.floor(self.y),16,25)
+    -- love.graphics.rectangle("line", math.floor(self.x), math.floor(self.y),21,26)
 end

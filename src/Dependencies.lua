@@ -41,14 +41,8 @@ require 'src/states/game/SkierSelectState'
 require 'src/states/game/HighScoreState'
 
 -- entity states
---require 'src/states/entity/PlayerFallingState'
---require 'src/states/entity/PlayerIdleState'
---require 'src/states/entity/PlayerJumpState'
+require 'src/states/entity/SkierJumpingState'
 require 'src/states/entity/SkierSkiingState'
-
---require 'src/states/entity/snail/SnailChasingState'
---require 'src/states/entity/snail/SnailIdleState'
---require 'src/states/entity/snail/SnailMovingState'
 
 -- general
 require 'src/Animation'
@@ -86,7 +80,7 @@ gTextures = {
     ['tiles'] = love.graphics.newImage('graphics/Snow sprite.png'),
     ['background'] = love.graphics.newImage('graphics/background.png'),
     -- ['skier'] = love.graphics.newImage('graphics/skier.png'),
-    ['skier'] = love.graphics.newImage('graphics/skier sprite1.png'),
+    ['skier'] = love.graphics.newImage('graphics/skier v4 jump animation.png'),
     ['ski_flag'] = love.graphics.newImage('graphics/flag.png'),
     ['arrows'] = love.graphics.newImage('graphics/arrows.png'),
     ['particle'] = love.graphics.newImage('graphics/particle.png'),
@@ -98,7 +92,7 @@ gTextures = {
 gFrames = {
     ['tiles'] = GenerateQuads(gTextures['tiles'], TILE_SIZE, TILE_SIZE),
     ['arrows'] = GenerateQuads(gTextures['arrows'],24,24),
-    ['skier'] = GenerateQuads(gTextures['skier'],16,25),
+    ['skier'] = GenerateQuads(gTextures['skier'],32,32),
     ['ski_flag'] = GenerateQuads(gTextures['ski_flag'],16,16),
     ['powerUp'] = GenerateQuads(gTextures['powerUp'],15,15),
     ['tree'] = GenerateQuads(gTextures['tree'],16,25),
