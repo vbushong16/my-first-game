@@ -41,13 +41,6 @@ function love.load()
         vsync = true
     })
 
-    gFrames = {
-        ['arrows'] = GenerateQuads(gTextures['arrows'],24,24),
-        ['skiers'] = GenerateQuads(gTextures['skier'],32,32),
-        ['flags'] = GenerateQuads(gTextures['ski_flag'],32,32),
-        ['powerUp'] = GenerateQuads(gTextures['powerUp'],15,15),
-    }
-
     gStateMachine = StateMachine{
         ['title'] = function() return TitleScreenState() end,
         ['play'] =  function() return PlayState() end,
@@ -57,6 +50,10 @@ function love.load()
         ['enter-high-score'] =  function() return EnterHighScoreState() end,
         ['countdown'] =  function() return CountdownState() end,
     }
+
+    print(SCREEN_TILE_WIDTH)
+    print(SCREEN_TILE_HEIGHT)
+
     gStateMachine:change('title',{
         highScores = loadHighScores()
     })
@@ -89,6 +86,7 @@ end
     
 
 function love.update(dt)
+    require('lib/lurker').update()
     gStateMachine:update(dt)
     love.keyboard.keysPressed = {}
 end

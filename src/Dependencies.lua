@@ -17,7 +17,9 @@
 Class = require 'lib/class'
 -- https://github.com/Ulydev/push
 push = require 'lib/push'
---Timer = require 'lib/knife.timer'
+lume = require 'lib/lume'
+lurker = require 'lib/lurker'
+-- Timer = require 'lib/knife.timer'
 
 --
 -- our own code
@@ -29,55 +31,34 @@ require 'src/StateMachine'
 require 'src/Util'
 
 -- game states
-require 'src/states/BaseState'
-require 'src/states/CountdownState'
-require 'src/states/PlayState'
-require 'src/states/GameOverState'
-require 'src/states/TitleScreenState'
-require 'src/states/EnterHighScoreState'
-require 'src/states/SkierSelectState'
-require 'src/states/HighScoreState'
+require 'src/states/game/BaseState'
+require 'src/states/game/CountdownState'
+require 'src/states/game/PlayState'
+require 'src/states/game/GameOverState'
+require 'src/states/game/TitleScreenState'
+require 'src/states/game/EnterHighScoreState'
+require 'src/states/game/SkierSelectState'
+require 'src/states/game/HighScoreState'
 
 -- entity states
---require 'src/states/entity/PlayerFallingState'
---require 'src/states/entity/PlayerIdleState'
---require 'src/states/entity/PlayerJumpState'
---require 'src/states/entity/PlayerWalkingState'
-
---require 'src/states/entity/snail/SnailChasingState'
---require 'src/states/entity/snail/SnailIdleState'
---require 'src/states/entity/snail/SnailMovingState'
+require 'src/states/entity/SkierJumpingState'
+require 'src/states/entity/SkierSkiingState'
 
 -- general
---require 'src/Animation'
---require 'src/Entity'
---require 'src/GameObject'
---require 'src/GameLevel'
---require 'src/LevelMaker'
---require 'src/Player'
---require 'src/Snail'
---require 'src/Tile'
-require 'src/PowerUp'
+require 'src/Animation'
+require 'src/Entity'
 require 'src/Flag'
 require 'src/FlagPair'
+require 'src/GameLevel'
+require 'src/GameObject'
+require 'src/LevelMaker'
+require 'src/Player'
+require 'src/PowerUp'
 require 'src/Skier'
+require 'src/Snail'
+require 'src/Tile'
+require 'src/TileMap'
 
-
-gSounds = {
-    ['music'] = love.audio.newSource('sounds/snowstorm background.wav', 'static'),
-    ['menu'] = love.audio.newSource('sounds/menu music.wav', 'static'),
-    ['crash'] = love.audio.newSource('sounds/collision sound.wav', 'static'),
-
-}
-
-gTextures = {
-    ['background'] = love.graphics.newImage('graphics/background.png'),
-    ['skier'] = love.graphics.newImage('graphics/skier Archive.png'),
-    ['ski_flag'] = love.graphics.newImage('graphics/ski flag.png'),
-    ['arrows'] = love.graphics.newImage('graphics/arrows.png'),
-    ['particle'] = love.graphics.newImage('graphics/particle.png'),
-    ['powerUp'] = love.graphics.newImage('graphics/power_up.png'),
-}
 
 
 gFonts = {
@@ -87,3 +68,39 @@ gFonts = {
     ['hugeFont'] = love.graphics.newFont('fonts/SEASRN__.ttf',48),
     --['title'] = love.graphics.newFont('fonts/ArcadeAlternate.ttf', 32)
 }
+
+gSounds = {
+    ['music'] = love.audio.newSource('sounds/snowstorm background.wav', 'static'),
+    ['menu'] = love.audio.newSource('sounds/menu music.wav', 'static'),
+    ['crash'] = love.audio.newSource('sounds/collision sound.wav', 'static')
+}
+
+gTextures = {
+    -- ['tiles'] = love.graphics.newImage('graphics/tiles.png'),
+    ['tiles'] = love.graphics.newImage('graphics/Snow sprite.png'),
+    ['background'] = love.graphics.newImage('graphics/background.png'),
+    -- ['skier'] = love.graphics.newImage('graphics/skier.png'),
+    ['skier'] = love.graphics.newImage('graphics/skier v4 jump animation.png'),
+    ['ski_flag'] = love.graphics.newImage('graphics/flag.png'),
+
+    ['arrows'] = love.graphics.newImage('graphics/arrows.png'),
+    ['particle'] = love.graphics.newImage('graphics/particle.png'),
+    ['powerUp'] = love.graphics.newImage('graphics/power_up.png'),
+    ['tree'] = love.graphics.newImage('graphics/tree.png'),
+}
+
+
+gFrames = {
+    ['tiles'] = GenerateQuads(gTextures['tiles'], TILE_SIZE, TILE_SIZE),
+    ['arrows'] = GenerateQuads(gTextures['arrows'],24,24),
+    ['skier'] = GenerateQuads(gTextures['skier'],32,32),
+    ['ski_flag'] = GenerateQuads(gTextures['ski_flag'],16,16),
+    ['powerUp'] = GenerateQuads(gTextures['powerUp'],15,15),
+    ['tree'] = GenerateQuads(gTextures['tree'],16,25),
+}
+
+gFrames['tilesets'] = GenerateTileSets(gFrames['tiles'], 
+    TILE_SETS_WIDE, TILE_SETS_TALL, TILE_SET_WIDTH, TILE_SET_HEIGHT)
+
+
+
