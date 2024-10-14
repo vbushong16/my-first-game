@@ -82,6 +82,7 @@ gTextures = {
     -- ['skier'] = love.graphics.newImage('graphics/skier.png'),
     ['skier'] = love.graphics.newImage('graphics/skier v4 jump animation.png'),
     ['ski_flag'] = love.graphics.newImage('graphics/flag.png'),
+
     ['arrows'] = love.graphics.newImage('graphics/arrows.png'),
     ['particle'] = love.graphics.newImage('graphics/particle.png'),
     ['powerUp'] = love.graphics.newImage('graphics/power_up.png'),
